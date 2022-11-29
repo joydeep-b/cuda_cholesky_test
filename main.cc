@@ -97,6 +97,7 @@ int main(int argc, char** argv) {
   CHECK_EQ(error_host, 0);
 
   // Copy the result back to the host.
+  CHECK_EQ(cudaDeviceSynchronize(), cudaSuccess);
   float x_host[num_cols];
   CHECK_EQ(cudaMemcpy(x_host,
                       b_device,
