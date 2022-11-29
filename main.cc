@@ -29,15 +29,20 @@ int main(int argc, char** argv) {
   cusolverDnHandle_t cusolver_handle = nullptr;
   CHECK_EQ(cusolverDnCreate(&cusolver_handle), CUSOLVER_STATUS_SUCCESS);
 
-  CHECK_EQ(cudaMalloc(
-      &A_device, num_cols * num_cols * sizeof(float)), cudaSuccess);
-  CHECK_EQ(cudaMemcpy(
-      A_device, A_host, num_cols * num_cols * sizeof(float),
-      cudaMemcpyHostToDevice), cudaSuccess);
+  CHECK_EQ(cudaMalloc(&A_device,
+                      num_cols * num_cols * sizeof(float)),
+      cudaSuccess);
+  CHECK_EQ(cudaMemcpy(A_device,
+                      A_host,
+                      num_cols * num_cols * sizeof(float),
+                      cudaMemcpyHostToDevice),
+    cudaSuccess);
   CHECK_EQ(cudaMalloc(&b_device, num_cols * sizeof(float)), cudaSuccess);
-  CHECK_EQ(cudaMemcpy(
-      b_device, b_host, num_cols * sizeof(float),
-      cudaMemcpyHostToDevice), cudaSuccess);
+  CHECK_EQ(cudaMemcpy(b_device,
+                      b_host,
+                      num_cols * sizeof(float),
+                      cudaMemcpyHostToDevice),
+      cudaSuccess);
 
   // Allocate buffer space.
   int device_workspace_size = 0;
